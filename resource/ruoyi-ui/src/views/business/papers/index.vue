@@ -235,8 +235,10 @@
 </template>
 
 <script>
-import { listPapers, getPapers, delPapers, addPapers, updatePapers } from "@/api/business/papers";
+import { listPapers, getPapers, delPapers, addPapers, updatePapers} from "@/api/business/papers";
 import {getToken} from "@/utils/auth";
+import {download} from "@/utils/request";
+
 
 export default {
   name: "Papers",
@@ -373,12 +375,24 @@ export default {
     handlePreview(row){
       window.open(row.url);
     },
+    // 文件下载处理
     handleDownload(row){
-      this.download(row.url, {
-      }, `papers_${new Date().getTime()}.xlsx`);
 
-    },
-     /** 提交按钮 */
+        // //根据文件路径参数，按斜杠进行分割，取得文件名，这是download函数需要的第三个参数
+        let list = row.url.split("/");
+        let fileName = list[list.length-1];
+        var name = fileName;
+        var url = row.url;
+        var suffix = url.substring(url.lastIndexOf("."), url.length);
+        const a = document.createElement('a')
+        a.setAttribute('download', name)
+        a.setAttribute('target', '_blank')
+        a.setAttribute('href', url)
+        a.click()
+      },
+
+
+/** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
