@@ -11,10 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="year"    column="year"    />
         <result property="type"    column="type"    />
         <result property="level"    column="level"    />
+        <result property="url"      column="url" />
     </resultMap>
 
     <sql id="selectPapersVo">
-        select id, name, content, year, type, level from bus_papers
+        select id, name, content, year, type, level,url from bus_papers
     </sql>
 
     <select id="selectPapersList" parameterType="com.tian.business.domain.Papers" resultMap="PapersResult">

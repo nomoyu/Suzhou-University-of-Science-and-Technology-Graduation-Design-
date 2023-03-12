@@ -20,6 +20,7 @@ public class Papers extends BaseEntity
     /** 论文id */
     private Long id;
 
+
     /** 论文名称 */
     @Excel(name = "论文名称")
     private String name;
@@ -40,8 +41,18 @@ public class Papers extends BaseEntity
     /** 论文分类 */
     @Excel(name = "论文分类(0-5:A-E)")
     private String level;
+    @Excel(name = "文件路径")
+    private String url;
 
-    public void setId(Long id) 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }

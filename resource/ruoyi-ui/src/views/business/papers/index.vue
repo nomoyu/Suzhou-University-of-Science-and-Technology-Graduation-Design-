@@ -125,14 +125,14 @@
             size="mini"
             type="text"
             icon="el-icon-view"
-            @click="handleUpdate(scope.row)"
+            @click="handlePreview(scope.row)"
             v-hasPermi="['business:papers:edit']"
           >预览</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-download"
-            @click="handleUpdate(scope.row)"
+            @click="handleDownload(scope.row)"
             v-hasPermi="['business:papers:edit']"
           >下载</el-button>
           <el-button
@@ -369,7 +369,16 @@ export default {
         this.title = "修改论文详细信息";
       });
     },
-    /** 提交按钮 */
+    /**预览按钮操作*/
+    handlePreview(row){
+      window.open(row.url);
+    },
+    handleDownload(row){
+      this.download(row.url, {
+      }, `papers_${new Date().getTime()}.xlsx`);
+
+    },
+     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
