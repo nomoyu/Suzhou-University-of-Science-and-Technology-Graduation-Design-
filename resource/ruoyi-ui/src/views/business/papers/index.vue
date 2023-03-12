@@ -109,15 +109,22 @@
           <dict-tag :options="dict.type.bus_papers_type" :value="scope.row.level"/>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="附件" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
+            icon="el-icon-view"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['business:papers:edit']"
-          >修改</el-button>
+          >预览</el-button>
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-download"
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['business:papers:edit']"
+          >下载</el-button>
           <el-button
             size="mini"
             type="text"
