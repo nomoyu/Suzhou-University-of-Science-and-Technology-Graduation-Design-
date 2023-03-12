@@ -1,0 +1,3 @@
+com.tian.system.api.factory.RemoteUserFallbackFactory
+com.tian.system.api.factory.RemoteLogFallbackFactory
+com.tian.system.api.factory.RemoteFileFallbackFactory

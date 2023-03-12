@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.tian</groupId>
+        <artifactId>dataAnalysis-common</artifactId>
+        <version>3.6.2</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    
+    <artifactId>dataAnalysis-common-security</artifactId>
+
+    <description>
+        dataAnalysis-common-security安全模块
+    </description>
+
+    <dependencies>
+
+        <!-- Spring Web -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <!-- data-analysis  Api System -->
+        <dependency>
+            <groupId>com.tian</groupId>
+            <artifactId>dataAnalysis-api-system</artifactId>
+        </dependency>
+
+        <!-- data-analysis  Common Redis-->
+        <dependency>
+            <groupId>com.tian</groupId>
+            <artifactId>dataAnalysis-common-redis</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

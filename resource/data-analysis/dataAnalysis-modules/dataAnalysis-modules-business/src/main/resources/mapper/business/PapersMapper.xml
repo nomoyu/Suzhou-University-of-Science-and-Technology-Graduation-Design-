@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tian.business.mapper.PapersMapper">
+    
+    <resultMap type="com.tian.business.domain.Papers" id="PapersResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="content"    column="content"    />
+        <result property="year"    column="year"    />
+        <result property="type"    column="type"    />
+        <result property="level"    column="level"    />
+    </resultMap>
+
+    <sql id="selectPapersVo">
+        select id, name, content, year, type, level from bus_papers
+    </sql>
+
+    <select id="selectPapersList" parameterType="com.tian.business.domain.Papers" resultMap="PapersResult">
+        <include refid="selectPapersVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="year != null "> and year = #{year}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+        </where>
+    </select>
+    
+    <select id="selectPapersById" parameterType="Long" resultMap="PapersResult">
+        <include refid="selectPapersVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectPapersByName" parameterType="String" resultMap="PapersResult">
+        <include refid="selectPapersVo"/>
+        where name = #{name}
+    </select>
+        
+    <insert id="insertPapers" parameterType="com.tian.business.domain.Papers" useGeneratedKeys="true" keyProperty="id">
+        insert into bus_papers
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="year != null">year,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="level != null and level != ''">level,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="year != null">#{year},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="level != null and level != ''">#{level},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePapers" parameterType="com.tian.business.domain.Papers">
+        update bus_papers
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="year != null">`year` = #{year},</if>
+            <if test="type != null and type != ''">`type` = #{type},</if>
+            <if test="level != null and level != ''">`level` = #{level},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePapersById" parameterType="Long">
+        delete from bus_papers where id = #{id}
+    </delete>
+
+    <delete id="deletePapersByIds" parameterType="String">
+        delete from bus_papers where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

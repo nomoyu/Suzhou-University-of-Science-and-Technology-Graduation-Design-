@@ -1,0 +1,2 @@
+com.tian.common.log.service.AsyncLogService
+com.tian.common.log.aspect.LogAspect

@@ -1,0 +1,3 @@
+com.tian.common.swagger.config.SwaggerAutoConfiguration
+com.tian.common.swagger.config.SwaggerWebConfiguration
+com.tian.common.swagger.config.SwaggerBeanPostProcessor
