@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      title: '若依管理系统',
+      title: '数学建模数据分析系统',
       logo: logoImg
     }
   }

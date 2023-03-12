@@ -1,0 +1,30 @@
+{
+  "id": "3559269",
+  "name": "test",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "8497560",
+      "name": "算法库",
+      "font_class": "suanfaku",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "22320180",
+      "name": "题目-04",
+      "font_class": "timu-04",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "28870975",
+      "name": "论文推荐",
+      "font_class": "lunwentuijian",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    }
+  ]
+}

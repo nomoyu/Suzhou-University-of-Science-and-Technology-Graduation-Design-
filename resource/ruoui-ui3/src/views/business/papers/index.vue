@@ -218,7 +218,6 @@
 </template>
 
 <script setup name="Papers">
-import DocumentViewer from '@/components/DocumentViewer';
 import { listPapers, getPapers, delPapers, addPapers, updatePapers } from "@/api/business/papers";
 import {getToken} from "@/utils/auth";
 
