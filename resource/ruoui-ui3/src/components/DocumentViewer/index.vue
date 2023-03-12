@@ -20,7 +20,6 @@
 <script>
 import Viewer from 'viewerjs';
 import 'viewerjs/dist/viewer.css';
-import VueViewer from 'vue-viewer';
 
 
 export default {
