@@ -55,3 +55,14 @@ export default {
     }
 };
 </script>
+<style>
+    .el-submenu__title,.el-menu-item{
+        height: 50px;
+        line-height: 50px;
+        font-size: 11px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 180px;
+    }
+
+</style>

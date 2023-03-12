@@ -28,7 +28,7 @@
           v-model="loginForm.code"
           auto-complete="off"
           placeholder="验证码"
-          style="width: 63%"
+          style="width: 63%;"
           @keyup.enter.native="handleLogin"
         >
           <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
@@ -42,8 +42,7 @@
         <el-button
           :loading="loading"
           size="medium"
-          type="primary"
-          style="width:100%;"
+          style="width:100%;background-color: rgba(0, 225, 255, 0.7);color: black;"
           @click.native.prevent="handleLogin"
         >
           <span v-if="!loading">登 录</span>
@@ -56,7 +55,7 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2018-2023 ruoyi.vip All Rights Reserved.</span>
+      <span>Copyright © 2023-2024 nomoyu.icu All Rights Reserved.</span>
     </div>
   </div>
 </template>
@@ -167,18 +166,20 @@ export default {
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
-  color: #707070;
+  color: #fbf5f5;
 }
 
 .login-form {
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 6px;
-  background: #ffffff;
   width: 400px;
   padding: 25px 25px 5px 25px;
   .el-input {
     height: 38px;
     input {
       height: 38px;
+      background-color: rgba(191, 191, 191, 0.5);
+      color: rgba(255,255,255,1.0);
     }
   }
   .input-icon {
