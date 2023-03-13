@@ -17,6 +17,14 @@ export function getPapers(id) {
   })
 }
 
+export function download(url){
+  return request({
+    url:'/download',
+    method:"get",
+    params:url
+  })
+}
+
 // 新增论文详细信息
 export function addPapers(data) {
   return request({
