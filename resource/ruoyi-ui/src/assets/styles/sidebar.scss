@@ -14,7 +14,9 @@
   .sidebar-container {
     -webkit-transition: width .28s;
     transition: width 0.28s;
-    width: $base-sidebar-width !important;
+    // 设置宽度
+    // width: $base-sidebar-width !important;
+    width: $base-sidebar-width ;
     background-color: $base-menu-background;
     height: 100%;
     position: fixed;
@@ -227,8 +229,3 @@
   }
 }
 
-// csdn分割线
-// .el-menu--horizontal > .el-submenu .el-submenu__title,
-// .el-menu--horizontal > .el-submenu.is-active .el-submenu__title{
-// 	background-color: antiquewhite !important;
-// }
