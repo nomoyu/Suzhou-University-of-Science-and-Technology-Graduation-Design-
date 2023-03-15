@@ -1,5 +1,12 @@
 <template>
     <div class="app-container">
+      <div>
+        <input type="file" ref="fileInput" @change="handleFileInputChange">
+        <button @click="uploadFile">上传</button>
+      </div>
+      <div>
+        <button @click="handleDownload" v-if="downloadFlag">下载</button>
+      </div>
       <el-row :gutter="20">
         <!--部门数据-->
         <el-col :span="4" :xs="24">
@@ -135,70 +142,6 @@
             </el-col>
             <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
           </el-row>
-
-          <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
-            <el-table-column type="selection" width="50" align="center" />
-            <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
-            <el-table-column label="XLABEL" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
-            <el-table-column label="YLABEL" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
-            <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
-            <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
-            <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
-              <template slot-scope="scope">
-                <el-switch
-                  v-model="scope.row.status"
-                  active-value="0"
-                  inactive-value="1"
-                  @change="handleStatusChange(scope.row)"
-                ></el-switch>
-              </template>
-            </el-table-column>
-            <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
-              <template slot-scope="scope">
-                <span>{{ parseTime(scope.row.createTime) }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column
-              label="操作"
-              align="center"
-              width="160"
-              class-name="small-padding fixed-width"
-            >
-              <template slot-scope="scope" v-if="scope.row.userId !== 1">
-                <el-button
-                  size="mini"
-                  type="text"
-                  icon="el-icon-edit"
-                  @click="handleUpdate(scope.row)"
-                  v-hasPermi="['system:user:edit']"
-                >修改</el-button>
-                <el-button
-                  size="mini"
-                  type="text"
-                  icon="el-icon-delete"
-                  @click="handleDelete(scope.row)"
-                  v-hasPermi="['system:user:remove']"
-                >删除</el-button>
-                <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)" v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
-                  <el-button size="mini" type="text" icon="el-icon-d-arrow-right">更多</el-button>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="handleResetPwd" icon="el-icon-key"
-                      v-hasPermi="['system:user:resetPwd']">重置密码</el-dropdown-item>
-                    <el-dropdown-item command="handleAuthRole" icon="el-icon-circle-check"
-                      v-hasPermi="['system:user:edit']">分配角色</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
-              </template>
-            </el-table-column>
-          </el-table>
-
-          <pagination
-            v-show="total>0"
-            :total="total"
-            :page.sync="queryParams.pageNum"
-            :limit.sync="queryParams.pageSize"
-            @pagination="getList"
-          />
         </el-col>
       </el-row>
 
@@ -322,6 +265,7 @@
           :auto-upload="false"
           drag
         >
+<!--          :action="upload.url + '?updateSupport=' + upload.updateSupport"-->
           <i class="el-icon-upload"></i>
           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
           <div class="el-upload__tip text-center" slot="tip">
@@ -337,7 +281,7 @@
           <el-button @click="upload.open = false">取 消</el-button>
         </div>
       </el-dialog>
-    <loudou/>
+      <loudou></loudou>
     </div>
   </template>
 
@@ -347,13 +291,15 @@
   import Treeselect from "@riophae/vue-treeselect";
   import "@riophae/vue-treeselect/dist/vue-treeselect.css";
   import loudou from "@/components/charts/loudou";
-
+  import axios from 'axios'
   export default {
     name: "User",
     dicts: ['sys_normal_disable', 'sys_user_sex'],
     components: { Treeselect ,loudou},
     data() {
       return {
+        downloadFlag:false,
+        file: null,
         // 遮罩层
         loading: true,
         // 选中数组
@@ -468,6 +414,36 @@
       });
     },
     methods: {
+      handleFileInputChange(event) {
+        this.file = event.target.files[0]
+      },
+      async uploadFile() {
+        const formData = new FormData()
+        formData.append('file', this.file)
+
+        try {
+          const response = await axios.post('http://127.0.0.1:8000/process_file', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          if (await response.data.code == 200) this.downloadFlag =true;
+        } catch (error) {
+          console.error(error)
+        }
+      },
+      handleDownload(){
+        // //根据文件路径参数，按斜杠进行分割，取得文件名，这是download函数需要的第三个参数
+        var file_name = "data.xlsx";  //测试写法，实际中与应与上传文件名保持一样
+        var url = "http://127.0.0.1:8000/download_file?file_name="  // 下载文件地址实际开发写入外部
+        const a = document.createElement('a')
+        a.setAttribute('download', name)
+        a.setAttribute('target', '_blank')
+        a.setAttribute('href', url+file_name)
+        a.click()
+        this.downloadFlag = false;
+      },
+
       /** 查询用户列表 */
       getList() {
         this.loading = true;
