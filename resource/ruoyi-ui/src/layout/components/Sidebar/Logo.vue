@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      title: '数学建模数据分析系统',
+      title: 'nomoyu',
       logo: logoImg
     }
   }
