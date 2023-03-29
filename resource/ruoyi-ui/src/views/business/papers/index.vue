@@ -100,13 +100,20 @@
     </el-row>
 
     <el-table v-loading="loading" :data="papersList" @selection-change="handleSelectionChange">
+
+
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="论文id" align="center" prop="id" />
-      <el-table-column label="论文名称" align="center" prop="name" />
+      <el-table-column label="NO.">
+        <template slot-scope="scope">
+          {{ scope.$index + 1}}
+        </template>
+      </el-table-column>
+<!--      <el-table-column label="论文id" align="center" prop="id" />-->
+      <el-table-column label="论文名称" align="left" prop="name" />
       <el-table-column label="论文内容" align="center" prop="content" :show-overflow-tooltip="true" />
       <el-table-column label="论文年限" align="center" prop="year" width="180" >
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.year, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.year, '{y} ') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="比赛类型" align="center" prop="type">

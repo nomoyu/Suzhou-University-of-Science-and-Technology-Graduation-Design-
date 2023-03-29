@@ -1,52 +1,51 @@
 <template>
   <div class="app-container">
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
-      <el-form-item label="审批人">
-        <el-input v-model="formInline.user" placeholder="审批人"></el-input>
-      </el-form-item>
-      <el-form-item label="活动区域">
-        <el-select v-model="formInline.region" placeholder="活动区域">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
+      <el-form-item label="版本信息">
+        <el-select v-model="index" placeholder="选择写作记录">
+          <el-option label="记录1" value="1"></el-option>
+          <el-option label="记录2" value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
     </el-form>
-    <mavon-editor :value="value" @change="valueChange" >
+    <mavon-editor :value="value" @change="valueChange" @save="save(form)">
       <!-- 左工具栏前加入自定义按钮 -->
       <template slot="left-toolbar-before">
-        <button
-          type="button"
-          @click="downloadZIP"
-          class="op-icon fa fa-mavon-align-left"
-          aria-hidden="true"
-          title="Tex"
-        ></button>
+<!--        <button-->
+<!--          type="button"-->
+<!--          @click="downloadZIP"-->
+<!--          class="op-icon fa fa-mavon-align-left"-->
+<!--          aria-hidden="true"-->
+<!--          title="Tex"-->
+<!--        ></button>-->
       </template>
     </mavon-editor>
 
-    <div v-html="htmlText" class="markdown-body" />
+<!--    <div v-html="htmlText" class="markdown-body" />-->
   </div>
 
 
 </template>
 
 <script>
-import { PRIORITY } from 'echarts/lib/echarts'
-// import {download} from '@/api/test'
-// import {resolveBlob} from '@/utils/zipdownload'
+import {add,list} from "@/api/business/write"
 
 export default {
   name: "MarkDown",
   data() {
     return {
-      formInline: {
-        user: '',
-        region: ''
+      dataList:[],
+      form:{
+        teamNumber:'001',
+        version:0,
+        note:"",
       },
-      value: "# ddd",
+      index:'最新记录',
+      // 初始值
+      value: "",
       htmlText:"",
       requestParam:{
         options: {
@@ -59,25 +58,38 @@ export default {
 
     };
   },
+  created() {
+    this.getList()
+  },
   methods: {
+    getList(){
+      list(this.form).then(res =>{
+          this.dataList = res.data
+            // 后端已经排序，始终取值第一条
+          this.value = res.data[0].note
+          // res.data.forEach(item=>{
+          //   this.value = item.note;
+          // })
+      })
+    },
+    // 版本查询记录
     onSubmit() {
-      console.log('submit!');
+      console.log(this.index)
+      this.value = this.dataList[this.index].note
+    },
+    save(form){
+      add(form).then(res=>{
+        console.log(res.data)
+      });
+      this.$message.success("save!")
     },
     valueChange(value, render) {
+      this.form.note = value;
       this.htmlText =render
 
       let len = this.htmlText.split('\n').length
 
-      console.log(len) // 4
-      //value为输入的内容，render是markdown渲染之后的html代码
-      console.log(value, render);
     },
-    downloadZIP(){
-      // download(this.requestParam).then(res =>{
-      //   this.htmlText =res.data
-        // resolveBlob(res,'application/zip')
-      // });
-    }
 
 
   },

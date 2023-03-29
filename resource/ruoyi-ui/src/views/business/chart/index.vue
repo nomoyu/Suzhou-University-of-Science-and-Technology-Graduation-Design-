@@ -1,19 +1,13 @@
 <template>
     <div class="app-container">
-      <div>
-        <input type="file" ref="fileInput" @change="handleFileInputChange">
-        <button @click="uploadFile">上传</button>
-      </div>
-      <div>
-        <button @click="handleDownload" v-if="downloadFlag">下载</button>
-      </div>
-      <el-row :gutter="20">
+
+      <el-row :gutter="50">
         <!--部门数据-->
         <el-col :span="4" :xs="24">
           <div class="head-container">
             <el-input
               v-model="deptName"
-              placeholder="请输入部门名称"
+              placeholder="请输入算法名称"
               clearable
               size="small"
               prefix-icon="el-icon-search"
@@ -33,116 +27,27 @@
               @node-click="handleNodeClick"
             />
           </div>
-        </el-col>
-        <!--用户数据-->
-        <el-col :span="20" :xs="24">
-          <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-            <el-form-item label="XLABEL" prop="userName">
-              <el-input
-                v-model="queryParams.userName"
-                placeholder="请输入用户名称"
-                clearable
-                style="width: 240px"
-                @keyup.enter.native="handleQuery"
-              />
-            </el-form-item>
-            <el-form-item label="YABEL" prop="phonenumber">
-              <el-input
-                v-model="queryParams.phonenumber"
-                placeholder="请输入手机号码"
-                clearable
-                style="width: 240px"
-                @keyup.enter.native="handleQuery"
-              />
-            </el-form-item>
-            <el-form-item label="状态" prop="status">
-              <el-select
-                v-model="queryParams.status"
-                placeholder="用户状态"
-                clearable
-                style="width: 240px"
-              >
-                <el-option
-                  v-for="dict in dict.type.sys_normal_disable"
-                  :key="dict.value"
-                  :label="dict.label"
-                  :value="dict.value"
-                />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="创建时间">
-              <el-date-picker
-                v-model="dateRange"
-                style="width: 240px"
-                value-format="yyyy-MM-dd"
-                type="daterange"
-                range-separator="-"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-              ></el-date-picker>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-              <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
-            </el-form-item>
-          </el-form>
 
-          <el-row :gutter="10" class="mb8">
-            <el-col :span="1.5">
-              <el-button
-                type="primary"
-                plain
-                icon="el-icon-plus"
-                size="mini"
-                @click="handleAdd"
-                v-hasPermi="['system:user:add']"
-              >新增</el-button>
-            </el-col>
-            <el-col :span="1.5">
-              <el-button
-                type="success"
-                plain
-                icon="el-icon-edit"
-                size="mini"
-                :disabled="single"
-                @click="handleUpdate"
-                v-hasPermi="['system:user:edit']"
-              >修改</el-button>
-            </el-col>
-            <el-col :span="1.5">
-              <el-button
-                type="danger"
-                plain
-                icon="el-icon-delete"
-                size="mini"
-                :disabled="multiple"
-                @click="handleDelete"
-                v-hasPermi="['system:user:remove']"
-              >删除</el-button>
-            </el-col>
-            <el-col :span="1.5">
-              <el-button
-                type="info"
-                plain
-                icon="el-icon-upload2"
-                size="mini"
-                @click="handleImport"
-                v-hasPermi="['system:user:import']"
-              >导入</el-button>
-            </el-col>
-            <el-col :span="1.5">
-              <el-button
-                type="warning"
-                plain
-                icon="el-icon-download"
-                size="mini"
-                @click="handleExport"
-                v-hasPermi="['system:user:export']"
-              >导出</el-button>
-            </el-col>
-            <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
-          </el-row>
         </el-col>
+
+        <el-col :span="20" :xs="24">
+          <h2>数据分析</h2>
+        </el-col>
+
+        <!--用户数据-->
+        <el-col>
+          <div>
+            <input type="file" ref="fileInput" @change="handleFileInputChange">
+            <br>
+            <br>
+            <br>
+            <button @click="uploadFile">开始分析</button>
+          </div>
+          <div>
+            <button @click="handleDownload" v-if="downloadFlag">下载</button>
+          </div>
+        </el-col>
+
       </el-row>
 
       <!-- 添加或修改用户配置对话框 -->
@@ -419,8 +324,8 @@
       },
       async uploadFile() {
         const formData = new FormData()
-        formData.append('file', this.file)
-
+        if (this.file) formData.append('file', this.file)
+        else return this.$message.warning("请先上传文件！")
         try {
           const response = await axios.post('http://127.0.0.1:8000/process_file', formData, {
             headers: {
@@ -430,6 +335,7 @@
           if (await response.data.code == 200) this.downloadFlag =true;
         } catch (error) {
           console.error(error)
+          this.$message.warning(error)
         }
       },
       handleDownload(){
