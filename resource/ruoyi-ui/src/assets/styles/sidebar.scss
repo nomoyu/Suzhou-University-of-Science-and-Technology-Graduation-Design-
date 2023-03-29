@@ -14,7 +14,9 @@
   .sidebar-container {
     -webkit-transition: width .28s;
     transition: width 0.28s;
-    width: $base-sidebar-width !important;
+    // 设置宽度
+    // width: $base-sidebar-width !important;
+    width: $base-sidebar-width ;
     background-color: $base-menu-background;
     height: 100%;
     position: fixed;
@@ -81,7 +83,7 @@
     .submenu-title-noDropdown,
     .el-submenu__title {
       &:hover {
-        background-color: rgba(0, 0, 0, 0.06) !important;
+        background-color: $base-sub-menu-hover !important;
       }
     }
 
@@ -94,7 +96,7 @@
       min-width: $base-sidebar-width !important;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.06) !important;
+        background-color: $base-sub-menu-hover !important;
       }
     }
 
@@ -203,7 +205,7 @@
   .el-menu-item {
     &:hover {
       // you can use $subMenuHover
-      background-color: rgba(0, 0, 0, 0.06) !important;
+      background-color: $base-sub-menu-hover !important;
     }
   }
 
@@ -227,8 +229,17 @@
   }
 }
 
-// csdn分割线
-// .el-menu--horizontal > .el-submenu .el-submenu__title,
-// .el-menu--horizontal > .el-submenu.is-active .el-submenu__title{
-// 	background-color: antiquewhite !important;
-// }
+// 菜单.active时字体样式
+.el-menu-item.is-active{
+  color:#e60012 !important;
+  background-color: $base-sub-menu-hover !important; // 点击菜单的颜
+  &:hover {
+    background-color: $base-sub-menu-hover !important;
+  }
+}
+// menu hover
+.submenu-title-noDropdown, .el-submenu__title {
+  &:hover {
+    background-color: $base-sub-menu-hover !important;
+  }
+}

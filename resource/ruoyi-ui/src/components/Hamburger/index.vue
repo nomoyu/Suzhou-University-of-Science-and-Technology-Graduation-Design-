@@ -1,6 +1,7 @@
 <template>
-  <div style="padding: 0 15px;" @click="toggleClick">
-    <svg
+  <div style="padding: 0 15px;display:flex" >
+    <!-- 展开合起首页小图标更改 -->
+    <!-- <svg
       :class="{'is-active':isActive}"
       class="hamburger"
       viewBox="0 0 1024 1024"
@@ -9,7 +10,14 @@
       height="64"
     >
       <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM142.4 642.1L298.7 519a8.84 8.84 0 0 0 0-13.9L142.4 381.9c-5.8-4.6-14.4-.5-14.4 6.9v246.3a8.9 8.9 0 0 0 14.4 7z" />
-    </svg>
+    </svg> -->
+    <img
+      src="../../assets/logo/svg.png"
+      @click="toggleClick"
+      :class="{ 'is-active': isActive }"
+      class="hamburger"
+    />
+    <div class="nabar-title">数学建模数据分析系统</div>
   </div>
 </template>
 
@@ -30,7 +38,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .hamburger {
   display: inline-block;
   vertical-align: middle;
@@ -41,5 +49,30 @@ export default {
 .hamburger.is-active {
   transform: rotate(180deg);
   margin-left: 0;
+}
+
+</style> -->
+<style scoped>
+.hamburger {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 18px;
+  width: 16px;
+  color: #e60012;
+  height: 16px;
+  margin-left: 6px;
+}
+
+.hamburger.is-active {
+  transform: rotate(180deg);
+}
+.nabar-title {
+  margin-left: 18px;
+  height: 100%;
+  width: 200px;
+  line-height: 50px;
+  color: #e60012;
+  font-weight: 600;
+  vertical-align: middle;
 }
 </style>
