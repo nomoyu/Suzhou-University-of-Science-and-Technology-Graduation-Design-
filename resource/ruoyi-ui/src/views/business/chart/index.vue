@@ -28,165 +28,37 @@
             />
           </div>
 
-        </el-col>
+          <div style="margin-top: 50px;">
+            <label for="upload" class="top">上传文件</label>
+            <input
+              type="file"
+              multiple id="upload"
+              style="display: none;"
+              ref="fileInput"
+              @change="handleFileInputChange" />
+            <p
+              style="color: rgb(230, 0, 18);
+                font-size: x-small;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                margin-left: 20px;"
+                >
+              文件格式为xls或xlsx</p>
+            <!-- <input type="file" ref="fileInput" @change="handleFileInputChange"> -->
 
-        <el-col :span="20" :xs="24">
-          <h2>数据分析</h2>
+            <button @click="uploadFile" class="btn top">开始分析</button>
+            <button @click="handleDownload" v-if="downloadFlag" class="btn top">下载</button>
+          </div>
+
         </el-col>
 
         <!--用户数据-->
-        <el-col>
-          <div>
-            <input type="file" ref="fileInput" @change="handleFileInputChange">
-            <br>
-            <br>
-            <br>
-            <button @click="uploadFile">开始分析</button>
-          </div>
-          <div>
-            <button @click="handleDownload" v-if="downloadFlag">下载</button>
-          </div>
+        <el-col :span="20" :xs="24">
+
         </el-col>
 
       </el-row>
 
-      <!-- 添加或修改用户配置对话框 -->
-      <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
-        <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="用户昵称" prop="nickName">
-                <el-input v-model="form.nickName" placeholder="请输入用户昵称" maxlength="30" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="归属部门" prop="deptId">
-                <treeselect v-model="form.deptId" :options="deptOptions" :show-count="true" placeholder="请选择归属部门" />
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="手机号码" prop="phonenumber">
-                <el-input v-model="form.phonenumber" placeholder="请输入手机号码" maxlength="11" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="邮箱" prop="email">
-                <el-input v-model="form.email" placeholder="请输入邮箱" maxlength="50" />
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item v-if="form.userId == undefined" label="XLABEL" prop="userName">
-                <el-input v-model="form.userName" placeholder="请输入用户名称" maxlength="30" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item v-if="form.userId == undefined" label="YLABEL" prop="password">
-                <el-input v-model="form.password" placeholder="请输入用户密码" type="password" maxlength="20" show-password/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="用户性别">
-                <el-select v-model="form.sex" placeholder="请选择性别">
-                  <el-option
-                    v-for="dict in dict.type.sys_user_sex"
-                    :key="dict.value"
-                    :label="dict.label"
-                    :value="dict.value"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="状态">
-                <el-radio-group v-model="form.status">
-                  <el-radio
-                    v-for="dict in dict.type.sys_normal_disable"
-                    :key="dict.value"
-                    :label="dict.value"
-                  >{{dict.label}}</el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="岗位">
-                <el-select v-model="form.postIds" multiple placeholder="请选择岗位">
-                  <el-option
-                    v-for="item in postOptions"
-                    :key="item.postId"
-                    :label="item.postName"
-                    :value="item.postId"
-                    :disabled="item.status == 1"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="角色">
-                <el-select v-model="form.roleIds" multiple placeholder="请选择角色">
-                  <el-option
-                    v-for="item in roleOptions"
-                    :key="item.roleId"
-                    :label="item.roleName"
-                    :value="item.roleId"
-                    :disabled="item.status == 1"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="24">
-              <el-form-item label="备注">
-                <el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submitForm">确 定</el-button>
-          <el-button @click="cancel">取 消</el-button>
-        </div>
-      </el-dialog>
 
-      <!-- 用户导入对话框 -->
-      <el-dialog :title="upload.title" :visible.sync="upload.open" width="400px" append-to-body>
-        <el-upload
-          ref="upload"
-          :limit="1"
-          accept=".xlsx, .xls"
-          :headers="upload.headers"
-          :action="upload.url + '?updateSupport=' + upload.updateSupport"
-          :disabled="upload.isUploading"
-          :on-progress="handleFileUploadProgress"
-          :on-success="handleFileSuccess"
-          :auto-upload="false"
-          drag
-        >
-<!--          :action="upload.url + '?updateSupport=' + upload.updateSupport"-->
-          <i class="el-icon-upload"></i>
-          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-          <div class="el-upload__tip text-center" slot="tip">
-            <div class="el-upload__tip" slot="tip">
-              <el-checkbox v-model="upload.updateSupport" /> 是否更新已经存在的用户数据
-            </div>
-            <span>仅允许导入xls、xlsx格式文件。</span>
-            <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="importTemplate">下载模板</el-link>
-          </div>
-        </el-upload>
-        <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submitFileForm">确 定</el-button>
-          <el-button @click="upload.open = false">取 消</el-button>
-        </div>
-      </el-dialog>
-      <loudou></loudou>
     </div>
   </template>
 
@@ -195,12 +67,11 @@
   import { getToken } from "@/utils/auth";
   import Treeselect from "@riophae/vue-treeselect";
   import "@riophae/vue-treeselect/dist/vue-treeselect.css";
-  import loudou from "@/components/charts/loudou";
   import axios from 'axios'
   export default {
     name: "User",
     dicts: ['sys_normal_disable', 'sys_user_sex'],
-    components: { Treeselect ,loudou},
+    components: { Treeselect},
     data() {
       return {
         downloadFlag:false,
@@ -321,13 +192,14 @@
     methods: {
       handleFileInputChange(event) {
         this.file = event.target.files[0]
+        this.$message.success('上传成功！')
       },
       async uploadFile() {
         const formData = new FormData()
         if (this.file) formData.append('file', this.file)
         else return this.$message.warning("请先上传文件！")
         try {
-          const response = await axios.post('http://127.0.0.1:8000/process_file', formData, {
+          const response = await axios.post('http://192.168.12.122:8000/process_file', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
@@ -553,3 +425,23 @@
 
   };
   </script>
+
+  <style>
+    .top {
+        height: 30px;
+        width: 80px;
+        background-color: rgba(230, 0, 18, 0.8);
+        font-size: 14px;
+        line-height: 30px;
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        color: #fff;
+        border-radius: 3px;
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+    .btn{
+      border: none;
+    }
+  </style>
