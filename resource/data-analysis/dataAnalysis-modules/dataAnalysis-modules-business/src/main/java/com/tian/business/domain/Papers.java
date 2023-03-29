@@ -30,6 +30,7 @@ public class Papers extends BaseEntity
     private String content;
 
     /** 论文年限 */
+//    @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "论文年限", width = 30, dateFormat = "yyyy-MM-dd")
     private Date year;
