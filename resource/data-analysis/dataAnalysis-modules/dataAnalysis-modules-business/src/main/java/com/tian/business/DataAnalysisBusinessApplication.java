@@ -3,6 +3,7 @@ package com.tian.business;
 import com.tian.common.security.annotation.EnableCustomConfig;
 import com.tian.common.security.annotation.EnableRyFeignClients;
 import com.tian.common.swagger.annotation.EnableCustomSwagger2;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -14,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableCustomSwagger2
 @EnableRyFeignClients
 @SpringBootApplication
+@MapperScan("com.tian.business.mapper")
 public class DataAnalysisBusinessApplication
 {
     public static void main(String[] args)
