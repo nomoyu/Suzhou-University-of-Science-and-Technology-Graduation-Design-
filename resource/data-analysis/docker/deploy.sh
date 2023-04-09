@@ -7,41 +7,41 @@ usage() {
 }
 
 # 开启所需端口
-port(){
-	firewall-cmd --add-port=80/tcp --permanent
-	firewall-cmd --add-port=8080/tcp --permanent
-	firewall-cmd --add-port=8848/tcp --permanent
-	firewall-cmd --add-port=9848/tcp --permanent
-	firewall-cmd --add-port=9849/tcp --permanent
-	firewall-cmd --add-port=6379/tcp --permanent
-	firewall-cmd --add-port=3306/tcp --permanent
-	firewall-cmd --add-port=9100/tcp --permanent
-	firewall-cmd --add-port=9200/tcp --permanent
-	firewall-cmd --add-port=9201/tcp --permanent
-	firewall-cmd --add-port=9202/tcp --permanent
-	firewall-cmd --add-port=9203/tcp --permanent
-	firewall-cmd --add-port=9300/tcp --permanent
-	service firewalld restart
-}
+# port(){
+# 	firewall-cmd --add-port=80/tcp --permanent
+# 	firewall-cmd --add-port=8080/tcp --permanent
+# 	firewall-cmd --add-port=8848/tcp --permanent
+# 	firewall-cmd --add-port=9848/tcp --permanent
+# 	firewall-cmd --add-port=9849/tcp --permanent
+# 	firewall-cmd --add-port=6379/tcp --permanent
+# 	firewall-cmd --add-port=3306/tcp --permanent
+# 	firewall-cmd --add-port=9100/tcp --permanent
+# 	firewall-cmd --add-port=9200/tcp --permanent
+# 	firewall-cmd --add-port=9201/tcp --permanent
+# 	firewall-cmd --add-port=9202/tcp --permanent
+# 	firewall-cmd --add-port=9203/tcp --permanent
+# 	firewall-cmd --add-port=9300/tcp --permanent
+# 	service firewalld restart
+# }
 
 # 启动基础环境（必须）
 base(){
-	docker-compose up -d data-analysis -mysql data-analysis -redis data-analysis -nacos
+	docker compose up -d  dataAnalysis-nacos
 }
 
 # 启动程序模块（必须）
 modules(){
-	docker-compose up -d data-analysis -nginx data-analysis -gateway data-analysis -auth data-analysis -modules-system
+	docker compose up -d dataAnalysis-nginx dataAnalysis-gateway dataAnalysis-auth dataAnalysis-modules-system dataAnalysis-modules-business
 }
 
 # 关闭所有环境/模块
 stop(){
-	docker-compose stop
+	docker compose stop
 }
 
 # 删除所有环境/模块
 rm(){
-	docker-compose rm
+	docker compose rm
 }
 
 # 根据输入参数，选择执行对应方法，不输入则执行使用说明

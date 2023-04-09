@@ -199,7 +199,7 @@
         if (this.file) formData.append('file', this.file)
         else return this.$message.warning("请先上传文件！")
         try {
-          const response = await axios.post('http://192.168.12.122:8000/process_file', formData, {
+          const response = await axios.post('http://127.0.0.1:8000/process_file', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
