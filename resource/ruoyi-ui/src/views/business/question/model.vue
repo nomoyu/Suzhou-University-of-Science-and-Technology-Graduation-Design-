@@ -21,8 +21,8 @@
 <!--        </el-col>-->
         <el-col :span="24">
           <el-form-item size="large">
-            <el-button type="primary" @click="submitForm">提交</el-button>
-            <el-button @click="resetForm">重置</el-button>
+            <el-button type="primary" @click="submitForm" size="small">提交</el-button>
+            <el-button @click="resetForm" size="small">重置</el-button>
           </el-form-item>
         </el-col>
         <el-col :span="24">
