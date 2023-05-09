@@ -107,11 +107,7 @@ export default {
 
   },
   created() {
-    this.getList();
-    this.getDeptTree();
-    this.getConfigKey("sys.user.initPassword").then(response => {
-      this.initPassword = response.msg;
-    });
+
   },
   methods: {
     handleFileInputChange(event) {

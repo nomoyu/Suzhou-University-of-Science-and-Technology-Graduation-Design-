@@ -37,6 +37,8 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   components: {},
   props: [],
@@ -66,7 +68,8 @@ export default {
     submitForm() {
       this.$refs['elForm'].validate(valid => {
         if (valid) {
-          this.formData.model = "功能开发中，请等待！"
+          this.uploadQuestion()
+          //this.formData.model = "功能开发中，请等待！"
         }
       })
     },
@@ -76,6 +79,23 @@ export default {
     },
     clean(){
       this.formData.content = ""
+    },
+    async uploadQuestion(){
+      const response = await axios.get('http://127.0.0.1:8000/model/'+this.formData.content)
+      this.formData.model = response.data.message
+
+      const textList = '这是第一段文字。这是第二段文字。这是第三段文字。这是第四段文字。'
+
+      let index = 0
+      let timer = setInterval(() => {
+        // 将文字插入到textarea中
+        this.formData.model  += textList[index]
+        index++
+        // 如果文字列表已经遍历完，则清除定时器
+        if (index === textList.length) {
+          clearInterval(timer)
+        }
+      }, 100)
     },
   }
 }
