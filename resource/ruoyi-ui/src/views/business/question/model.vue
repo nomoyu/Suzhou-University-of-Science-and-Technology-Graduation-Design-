@@ -45,27 +45,37 @@ export default {
   data() {
     return {
       formData: {
-        content: '',
+        content: '(搜索案例)某电子产品制造企业面临以下问题：在多品种小批量的物料生产中，事先无法知道物料的\n' +
+          '实际需求量。企业希望运用数学方法，分析已有的历史数据，建立数学模型，帮助企业合理地\n' +
+          '安排物料生产。\n' +
+          '问题 1 请对附件中的历史数据进行分析，选择 6 种应当重点关注的物料（可从物料需求\n' +
+          '出现的频数、数量、趋势和销售单价等方面考虑），建立物料需求的周预测模型（即以周为基\n' +
+          '本时间单位，预测物料的周需求量，见附录(1)），并利用历史数据对预测模型进行评价。\n' +
+          '问题 2 如果按照物料需求量的预测值来安排生产，可能会产生较大的库存，或者出现较\n' +
+          '多的缺货，给企业带来经济和信誉方面的损失。企业希望从需求量的预测值、需求特征、库存\n' +
+          '量和缺货量等方面综合考虑，以便更合理地安排生产',
         upload: '',
         clean: undefined,
-        model: undefined,
+        model: '',
       },
+      areaContent:'',
       rules: {
         content: [{
           required: true,
           message: '输入请请输入论文内容',
           trigger: 'blur'
         }],
-
       },
     }
   },
   computed: {},
   watch: {},
-  created() {},
+  created() {
+  },
   mounted() {},
   methods: {
     submitForm() {
+
       this.$refs['elForm'].validate(valid => {
         if (valid) {
           this.uploadQuestion()
@@ -80,11 +90,18 @@ export default {
     clean(){
       this.formData.content = ""
     },
-    async uploadQuestion(){
-      const response = await axios.get('http://127.0.0.1:8000/model/'+this.formData.content)
-      this.formData.model = response.data.message
 
-      const textList = '这是第一段文字。这是第二段文字。这是第三段文字。这是第四段文字。'
+    async uploadQuestion(){
+      this.formData.model = ""
+      // 模型后台提交地址
+      const response = await axios.get('http://127.0.0.1:8000/model/'+this.formData.content)
+     // this.formData.model = response.data.message
+
+
+      const textList = `本次检索题目库为2001年至2022年所有题目，检索出最相似文章为：《${response.data.message.name}》\n
+        关键词如下：
+        ${response.data.message.keywords1},${response.data.message.keywords2},${response.data.message.keywords3},${response.data.message.keywords4}
+        `
 
       let index = 0
       let timer = setInterval(() => {
