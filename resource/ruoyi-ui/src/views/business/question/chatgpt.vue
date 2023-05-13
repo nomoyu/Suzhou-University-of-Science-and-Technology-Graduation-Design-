@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row :gutter="15">
-      <el-form ref="elForm" :model="formData" :rules="rules" size="mini" label-width="100px"
+      <el-form ref="elForm" :model="formData" :rules="rules"  label-width="100px"
                label-position="top">
         <el-col :span="24">
           <el-form-item label="请输入问题" prop="question">
@@ -16,7 +16,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="答案" prop="model" v-loading="show" >
+          <el-form-item label="答案" prop="model" v-loading="show">
             <el-input  v-model="answer" type="textarea" placeholder="等待答案生成" readonly
                       :autosize="{minRows: 16, maxRows: 20}" :style="{width: '100%'}"></el-input>
           </el-form-item>
@@ -106,8 +106,9 @@ export default {
   .el-textarea__inner{
     background-color: rgba(220, 211, 241, 0.1);
     color: black;
-    font-size: 0.9rem;
-    font-weight: bolder;
-    line-height: 1.5;
+    font-size: 1rem;
+    font-weight: normal;
+    font-family: inherit;
+    line-height: 1.8;
   }
 </style>

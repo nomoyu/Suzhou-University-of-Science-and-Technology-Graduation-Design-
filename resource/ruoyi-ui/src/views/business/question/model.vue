@@ -17,7 +17,7 @@
         </el-col>
         <el-col :span="24">
           <el-form-item label="模型推荐" prop="model">
-            <el-input v-model="formData.model" type="textarea" placeholder="等待模型生成"
+            <el-input v-model="formData.model" type="textarea" placeholder="等待模型生成" readonly
               :autosize="{minRows: 4, minRows: 6}" :style="{width: '100%'}"></el-input>
           </el-form-item>
         </el-col>
@@ -108,8 +108,9 @@ export default {
   .el-textarea__inner{
     background-color: rgba(220, 211, 241, 0.1);
     color: black;
-    font-size: 0.9rem;
-    font-weight: bolder;
-    line-height: 1.5;
+    font-size: 1rem;
+    font-weight: normal;
+    font-family: inherit;
+    line-height: 1.8;
   }
 </style>

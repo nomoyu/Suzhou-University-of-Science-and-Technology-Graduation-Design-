@@ -2,7 +2,6 @@
   <div class="app-container">
 
     <el-row :gutter="50">
-      <!--部门数据-->
       <el-col :span="3" :xs="24">
         <div style="margin-top: 50px;">
           <label for="upload" class="top">上传文件</label>
@@ -30,7 +29,7 @@
       <!--算法介绍部分加数据-->
       <el-col :span="20" :xs="24" >
         <h1>{{formData.title}}</h1>
-        <div class="content" style="background: #b5daec;font-size: 20px;line-height: 2"  v-html="formData.content">
+        <div class="content"  v-html="formData.content">
         </div>
       </el-col>
 
@@ -168,5 +167,20 @@ export default {
 }
 h1 {
   text-align: center;
+}
+h3{
+  font-weight: bolder;
+}
+.title{
+  color: black;
+}
+.content{
+  padding: 2em;
+  font-size: 1rem;
+  line-height: 1.8;
+  box-shadow: 0 0 5px  rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  min-height: 450px;
+  min-height: 450px;
 }
 </style>
