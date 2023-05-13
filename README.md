@@ -189,7 +189,7 @@ file:
 
 ​    domain: http://127.0.0.1:9300
 
-​    path: D:/dataAnalysis/uploadPath
+​    path: D:/dataAnalysis/uploadPath      /home/data-analysis/uploadPath
 
 ​    prefix: /statics
 
