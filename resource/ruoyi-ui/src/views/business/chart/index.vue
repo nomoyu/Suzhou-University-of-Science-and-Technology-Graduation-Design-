@@ -219,7 +219,7 @@
     padding: 10px;
     background-color: rgba(193, 189, 189, 0.2);
     box-shadow: inset 0 0 5px rgba(60, 59, 59, 0.5);
-    width: 130px;
+    width: 8em;
     line-height: 1.5;
   }
   </style>
