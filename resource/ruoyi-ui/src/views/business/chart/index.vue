@@ -2,7 +2,6 @@
     <div class="app-container">
 
       <el-row :gutter="50">
-        <!--部门数据-->
         <el-col :span="3" :xs="24">
           <div style="margin-top: 50px;">
             <label for="upload" class="top">上传文件</label>
@@ -24,6 +23,15 @@
             <button @click="uploadFile" class="btn top">开始分析</button>
             <button @click="handleDownload" v-if="downloadFlag" class="btn top">下载</button>
           </div>
+          <div class="tips">
+            <b>使用说明：</b>
+            <br>
+            <small>
+              1. 点击"上传文件"，确保文件格式准确后，点击"开始分析"等待分析完成后，下载文件即可。
+              <br>
+              2. 注意此页面格式所有字段都应为数值类型，如有异常值，空值等情况，请现在数据清洗界面进行数据处理。
+            </small>
+        </div>
 
         </el-col>
 
@@ -76,7 +84,7 @@
           <p>一般来说，数据清理是将数据库精简以除去重复记录，并使剩余部分转换成标准可接收格式的过程。数据清理标准模型是将数据输入到数据清理处理器，通过一系列步骤“ 清理”数据，然后以期望的格式输出清理过的数据。数据清理从数据的准确性、完整性、一致性、惟一性、适时性、有效性几个方面来处理数据的丢失值、越界值、不一致代码、重复数据等问题。数据清理一般针对具体应用，因而难以归纳统一的方法和步骤，但是根据数据不同可以给出相应的数据清理方法。1.解决不完整数据（ 即值缺失）的方法大多数情况下，缺失的值必须手工填入（ 即手工清理）。当然，某些缺失值可以从本数据源或其它数据源推导出来，这就可以用平均值、最大值、最小值或更为复杂的概率估计代替缺失的值，从而达到清理的目的。2.错误值的检测及解决方法用统计分析的方法识别可能的错误值或异常值，如偏差分析、识别不遵守分布或回归方程的值，也可以用简单规则库（ 常识性规则、业务特定规则等）检查数据值，或使用不同属性间的约束、外部的数据来检测和清理数据。3.重复记录的检测及消除方法数据库中属性值相同的记录被认为是重复记录，通过判断记录间的属性值是否相等来检测记录是否相等，相等的记录合并为一条记录（即合并/清除）。合并/清除是消重的基本方法。4.不一致性（ 数据源内部及数据源之间）的检测及解决方法从多数据源集成的数据可能有语义冲突，可定义完整性约束用于检测不一致性，也可通过分析数据发现联系，从而使得数据保持一致。开发的数据清理工具大致可分为三类。数据迁移工具允许指定简单的转换规则，如：将字符串gender替换成sex。sex公司的PrismWarehouse是一个流行的工具，就属于这类。数据清洗工具使用领域特有的知识（ 如，邮政地址）对数据作清洗。它们通常采用语法分析和模糊匹配技术完成对多数据源数据的清理。某些工具可以指明源的“ 相对清洁程度”。工具Integrity和Trillum属于这一类。数据审计工具可以通过扫描数据发现规律和联系。因此，这类工具可以看作是数据挖掘工具的变形。</p>
           `,
           format: `
-          <h2>公式</h2>
+          <h2>代码</h2>
           `
         },
         downloadFlag:false,
@@ -195,4 +203,23 @@
       border-radius: 10px;
       min-height: 450px;
     }
+    h2{
+      display: inline-block;
+      background-color: rgb(0, 188, 0);
+      padding: 6px 20px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+    .tips{
+    margin-top: 50px;
+    margin-left: 8px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgba(193, 189, 189, 0.2);
+    box-shadow: inset 0 0 5px rgba(60, 59, 59, 0.5);
+    width: 130px;
+    line-height: 1.5;
+  }
   </style>

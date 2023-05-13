@@ -23,6 +23,15 @@
           <button @click="uploadFile" class="btn top">开始分析</button>
           <button @click="handleDownload" v-if="downloadFlag" class="btn top">下载</button>
         </div>
+        <div class="tips">
+            <b>使用说明：</b>
+            <br>
+            <small>
+              1. 点击"上传文件"，确保文件格式准确后，点击"开始分析"等待分析完成后，下载文件即可。
+              <br>
+              2. 注意此页面格式所有字段都应为数值类型，如有异常值，空值等情况，请现在数据清洗界面进行数据处理。
+            </small>
+        </div>
 
       </el-col>
 
@@ -53,7 +62,7 @@ export default {
       formData: {
         title:'数据降维',
         format:`
-        <h2>公式</h2>
+        <h2>代码</h2>
         `,
         content:`
           <h2>理论</h2>
@@ -174,6 +183,14 @@ export default {
 h1 {
   text-align: center;
 }
+h2{
+    display: inline-block;
+    background-color: rgb(0, 188, 0);
+    padding: 6px 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 1rem;
+  }
 h3{
   font-weight: bolder;
 }
@@ -190,4 +207,15 @@ h3{
   min-height: 450px;
   min-height: 450px;
 }
+.tips{
+    margin-top: 50px;
+    margin-left: 8px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgba(193, 189, 189, 0.2);
+    box-shadow: inset 0 0 5px rgba(60, 59, 59, 0.5);
+    width: 130px;
+    line-height: 1.5;
+  }
 </style>
