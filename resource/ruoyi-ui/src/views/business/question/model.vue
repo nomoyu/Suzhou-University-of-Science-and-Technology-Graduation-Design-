@@ -9,16 +9,6 @@
               :autosize="{minRows: 12, maxRows: 1}" :style="{width: '100%'}"></el-input>
           </el-form-item>
         </el-col>
-<!--        <el-col :span="8">-->
-<!--          <el-form-item label="" prop="upload">-->
-<!--            <el-button type="primary" icon="el-icon-upload" size="medium"> 上传 </el-button>-->
-<!--          </el-form-item>-->
-<!--        </el-col>-->
-<!--        <el-col :span="8">-->
-<!--          <el-form-item label="" prop="clean">-->
-<!--            <el-button type="warning" icon="el-icon-clean" size="medium" @click="clean()"> 清空内容 </el-button>-->
-<!--          </el-form-item>-->
-<!--        </el-col>-->
         <el-col :span="24">
           <el-form-item size="large">
             <el-button type="primary" @click="submitForm" size="small">提交</el-button>
@@ -27,8 +17,8 @@
         </el-col>
         <el-col :span="24">
           <el-form-item label="模型推荐" prop="model">
-            <el-input v-model="formData.model" type="textarea" placeholder="等待模型生成" readonly
-              :autosize="{minRows: 4, maxRows: 4}" :style="{width: '100%'}"></el-input>
+            <el-input v-model="formData.model" type="textarea" placeholder="等待模型生成"
+              :autosize="{minRows: 4, minRows: 6}" :style="{width: '100%'}"></el-input>
           </el-form-item>
         </el-col>
 
@@ -45,15 +35,12 @@ export default {
   data() {
     return {
       formData: {
-        content: '(搜索案例)某电子产品制造企业面临以下问题：在多品种小批量的物料生产中，事先无法知道物料的\n' +
-          '实际需求量。企业希望运用数学方法，分析已有的历史数据，建立数学模型，帮助企业合理地\n' +
-          '安排物料生产。\n' +
-          '问题 1 请对附件中的历史数据进行分析，选择 6 种应当重点关注的物料（可从物料需求\n' +
-          '出现的频数、数量、趋势和销售单价等方面考虑），建立物料需求的周预测模型（即以周为基\n' +
-          '本时间单位，预测物料的周需求量，见附录(1)），并利用历史数据对预测模型进行评价。\n' +
-          '问题 2 如果按照物料需求量的预测值来安排生产，可能会产生较大的库存，或者出现较\n' +
-          '多的缺货，给企业带来经济和信誉方面的损失。企业希望从需求量的预测值、需求特征、库存\n' +
-          '量和缺货量等方面综合考虑，以便更合理地安排生产',
+        content:
+        `  (搜索案例)
+    某电子产品制造企业面临以下问题：在多品种小批量的物料生产中，事先无法知道物料的实际需求量。企业希望运用数学方法，分析已有的历史数据，建立数学模型，帮助企业合理地安排物料生产。
+    问题 1 请对附件中的历史数据进行分析，选择 6 种应当重点关注的物料（可从物料需求出现的频数、数量、趋势和销售单价等方面考虑），建立物料需求的周预测模型（即以周为基本时间单位，预测物料的周需求量，见附录(1)），并利用历史数据对预测模型进行评价。
+    问题 2 如果按照物料需求量的预测值来安排生产，可能会产生较大的库存，或者出现较多的缺货，给企业带来经济和信誉方面的损失。企业希望从需求量的预测值、需求特征、库存量和缺货量等方面综合考虑，以便更合理地安排生产。
+        `,
         upload: '',
         clean: undefined,
         model: '',
@@ -75,7 +62,6 @@ export default {
   mounted() {},
   methods: {
     submitForm() {
-
       this.$refs['elForm'].validate(valid => {
         if (valid) {
           this.uploadQuestion()
@@ -119,4 +105,11 @@ export default {
 
 </script>
 <style>
+  .el-textarea__inner{
+    background-color: rgba(220, 211, 241, 0.1);
+    color: black;
+    font-size: 0.9rem;
+    font-weight: bolder;
+    line-height: 1.5;
+  }
 </style>

@@ -16,8 +16,8 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="答案" prop="model">
-            <el-input v-model="answer" type="textarea" placeholder="等待答案生成" readonly
+          <el-form-item label="答案" prop="model" v-loading="show" >
+            <el-input  v-model="answer" type="textarea" placeholder="等待答案生成" readonly
                       :autosize="{minRows: 16, maxRows: 20}" :style="{width: '100%'}"></el-input>
           </el-form-item>
         </el-col>
@@ -28,7 +28,6 @@
 </template>
 <script>
 import axios from "axios";
-import {white} from "chalk";
 
 export default {
   name:'chatgpt',
@@ -36,6 +35,7 @@ export default {
   props: [],
   data() {
     return {
+      show: false,
       formData: {
         question: '',
         OpenAIKey:'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'
@@ -58,7 +58,6 @@ export default {
   mounted() {},
   methods: {
     submitForm() {
-
       this.$refs['elForm'].validate(valid => {
         if (valid) {
           this.uploadQuestion()
@@ -76,6 +75,7 @@ export default {
 
     async uploadQuestion(){
       this.answer = ""
+      this.show = true
       // 模型后台提交地址
       let data = new FormData();
       data.append('question', this.formData.question);
@@ -83,6 +83,7 @@ export default {
       //const response = await axios.post('http://8.222.152.157/ask',data = data)
       axios.post('http://8.222.152.157/ask',data = data).then(res =>{
         const textList = JSON.parse(res.data.answer)
+        this.show = false
         console.log(textList)
         let index = 0
         let timer = setInterval(() => {
@@ -102,4 +103,11 @@ export default {
 
 </script>
 <style>
+  .el-textarea__inner{
+    background-color: rgba(220, 211, 241, 0.1);
+    color: black;
+    font-size: 0.9rem;
+    font-weight: bolder;
+    line-height: 1.5;
+  }
 </style>
