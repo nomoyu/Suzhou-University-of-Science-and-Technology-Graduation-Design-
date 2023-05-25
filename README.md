@@ -167,10 +167,6 @@ services:
 
 
 
-### 关联html文件
-
-mkdir -p /home/data-analysis/projects/data-analysis-ui
-
 
 
 
@@ -181,7 +177,7 @@ mkdir -p /home/data-analysis/projects/data-analysis-ui
 
 
 
-文件模块
+### 文件模块
 
 \# 本地文件上传    
 
@@ -193,7 +189,7 @@ file:
 
 ​    prefix: /statics
 
-
+需要先将文件夹下所有的文件，放置目录
 
 \# FastDFS配置
 
@@ -230,4 +226,18 @@ minio:
    ```shell
    uvicorn main:app --reload
    ```
+
+ 2. 配置docker
+
+    
+
+
+
+**python：未全部接入网关，ip域名**
+
+**问题：文件地址问题    前端修改，域名代替真实服务ip地址**
+
+**代码：代码未完善**
+
+**chatgpt：服务器没有租用**  ok
 

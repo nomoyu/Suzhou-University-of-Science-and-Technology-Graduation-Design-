@@ -81,7 +81,7 @@ export default {
       data.append('question', this.formData.question);
       data.append('OpenAIKey', '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');
       //const response = await axios.post('http://8.222.152.157/ask',data = data)
-      axios.post('http://8.222.152.157/ask',data = data).then(res =>{
+      axios.post('http://8.222.179.236/ask',data = data).then(res =>{
         const textList = JSON.parse(res.data.answer)
         this.show = false
         console.log(textList)

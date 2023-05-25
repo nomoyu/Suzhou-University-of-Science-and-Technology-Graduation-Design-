@@ -69,6 +69,27 @@ export default {
         `,
         format: `
         <h2>代码</h2>
+        <br>
+        <code>
+        import numpy as np
+        from sklearn.linear_model import LinearRegression
+
+        # 生成训练数据
+        X = np.array([[1], [2], [3], [4], [5]])
+        y = np.array([2, 4, 6, 8, 10])
+
+        # 实例化线性回归模型
+        model = LinearRegression()
+
+        # 训练模型
+        model.fit(X, y)
+
+        # 预测
+        y_pred = model.predict(np.array([[6]]))
+
+        # 输出预测结果
+        print("预测结果：", y_pred[0])
+        </code>
         `
       },
       downloadFlag:false,

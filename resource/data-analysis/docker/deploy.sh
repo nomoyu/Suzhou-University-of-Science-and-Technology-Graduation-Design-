@@ -31,7 +31,7 @@ base(){
 
 # 启动程序模块（必须）
 modules(){
-	docker compose up -d data-analysis-nginx data-analysis-gateway data-analysis-auth data-analysis-modules-system data-analysis-modules-business
+	docker compose up -d data-analysis-nginx data-analysis-gateway data-analysis-auth data-analysis-modules-system data-analysis-modules-business data-analysis-python data-analysis-modules-file
 }
 
 # 关闭所有环境/模块

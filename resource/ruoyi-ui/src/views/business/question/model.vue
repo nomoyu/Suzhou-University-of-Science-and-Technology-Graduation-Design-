@@ -16,7 +16,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="模型推荐" prop="model">
+          <el-form-item label="模型推荐" prop="model" v-loading="show">
             <el-input v-model="formData.model" type="textarea" placeholder="等待模型生成" readonly
               :autosize="{minRows: 4, minRows: 6}" :style="{width: '100%'}"></el-input>
           </el-form-item>
@@ -28,12 +28,14 @@
 </template>
 <script>
 import axios from "axios";
+import {model} from "@/api/business/python";
 
 export default {
   components: {},
   props: [],
   data() {
     return {
+      show: false,
       formData: {
         content:
         `  (搜索案例)
@@ -77,16 +79,23 @@ export default {
       this.formData.content = ""
     },
 
-    async uploadQuestion(){
+
+    uploadQuestion(){
+      this.show = true
+      model(this.formData.content).then(response =>{
+        console.log("gateway结果是",response)
+        this.show = false
+
       this.formData.model = ""
       // 模型后台提交地址
-      const response = await axios.get('http://127.0.0.1:8000/model/'+this.formData.content)
+     // const response = await axios.get('http://127.0.0.1:8000/python/model/'+this.formData.content)
      // this.formData.model = response.data.message
 
 
-      const textList = `本次检索题目库为2001年至2022年所有题目，检索出最相似文章为：《${response.data.message.name}》\n
+
+      const textList = `本次检索题目库为2001年至2022年所有题目，检索出最相似文章为：《${response.message.name}》\n
         关键词如下：
-        ${response.data.message.keywords1},${response.data.message.keywords2},${response.data.message.keywords3},${response.data.message.keywords4}
+        ${response.message.keywords1},${response.message.keywords2},${response.message.keywords3},${response.message.keywords4}
         `
 
       let index = 0
@@ -99,6 +108,7 @@ export default {
           clearInterval(timer)
         }
       }, 100)
+      })
     },
   }
 }

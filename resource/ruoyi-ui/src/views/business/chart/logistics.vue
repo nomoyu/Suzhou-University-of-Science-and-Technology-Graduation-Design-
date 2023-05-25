@@ -109,6 +109,36 @@ export default {
         `,
         format: `
         <h2>代码</h2>
+        <br>
+        <code>
+        import numpy as np
+        from sklearn.linear_model import LogisticRegression
+
+        # 创建训练数据集
+        X_train = np.array([[1, 2], [2, 3], [3, 1], [4, 3], [5, 3], [6, 2]])
+        y_train = np.array([0, 0, 0, 1, 1, 1])
+
+        # 创建逻辑回归模型对象
+        logreg = LogisticRegression()
+
+        # 训练逻辑回归模型
+        logreg.fit(X_train, y_train)
+
+        # 打印模型系数
+        print('模型系数：', logreg.coef_)
+
+        # 打印模型偏差
+        print('模型偏差：', logreg.intercept_)
+
+        # 创建测试数据集
+        X_test = np.array([[2, 1], [3, 2], [4, 4], [5, 5]])
+
+        # 对测试数据集进行预测
+        y_pred = logreg.predict(X_test)
+
+        # 打印测试数据集的预测结果
+        print('测试数据集的预测结果：', y_pred)
+    </code>
         `
       },
       downloadFlag:false,

@@ -88,3 +88,12 @@ services:
       dockerfile: dockerfile
     ports:
       - "9205:9205"
+  data-analysis-python:
+    container_name: data-analysis-python
+    build:
+      context: ./python
+      dockerfile: dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./python/app:/home/data-analysis/python/code/app
